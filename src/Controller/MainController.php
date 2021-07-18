@@ -34,7 +34,7 @@ class MainController extends AbstractController
         $quiz = new Quiz;
         $form = $this->createForm(NewQuizType::class, $quiz);
         $form->handleRequest($request);
-        if($form->isSubmitted())
+        if($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
             $em->persist($quiz);
@@ -42,7 +42,7 @@ class MainController extends AbstractController
 
             return $this->redirectToRoute('questions', array(
                 'quizId' => $quiz->getId(),
-                'max' => MAX_QUESTION_NUMBER
+                'counter' => 1
             ));
         }
 

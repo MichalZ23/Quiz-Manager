@@ -12,15 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin/questions/{counter}/{quizId}/{max}', name: 'questions')]
+    #[Route('/admin/questions/{counter}/{quizId}', name: 'questions')]
     /**
      * @param Request $request
      * @param QuizRepository $quizRepository
      * @param int $counter
      * @param int $quizId
-     * @param int $max
      */
-    public function getQuestionForm(Request $request, QuizRepository $quizRepository, $counter, $quizId, $max): Response    
+    public function getQuestionForm(Request $request, QuizRepository $quizRepository, $counter, $quizId): Response    
     {
         $quiz = $quizRepository->findOneBy(['id' => $quizId]);
         $question = new Question;
@@ -28,7 +27,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(NewQuestionType::class, $question);
         $form->handleRequest($request);
         
-        if($form->isSubmitted())
+        if($form->isSubmitted() && $form->isValid())
         {            
             $em = $this->getDoctrine()->getManager();
             $em->persist($question);
@@ -43,7 +42,6 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('questions', [
                 'quizId' => $quizId,
                 'counter' => $counter,
-                'max' => $max
             ]);
             
         }
@@ -51,7 +49,7 @@ class AdminController extends AbstractController
         return $this->render('admin/questions.html.twig', [
             'form' => $form->createView(),
             'counter' => $counter,
-            'max' => $max,
+            'max' => MAX_QUESTION_NUMBER,
             'quizId' => $quizId
         ]);
     }

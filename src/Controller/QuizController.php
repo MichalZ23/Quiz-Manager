@@ -31,9 +31,8 @@ class QuizController extends AbstractController
         $correctAnswers = $correctAnswersCollector->collectAnswers($randomQuestions);
         $form = $this->createForm(UserAnswerType::class);
         $form->handleRequest($request);
-             
-        dump($correctAnswers);
-        if($form->isSubmitted())
+        
+        if($form->isSubmitted() && $form->isValid())
         {   
             $userAnswers = $form->getData();
             $points = $answersChecker->checkAnswers($userAnswers, $correctAnswers);
@@ -68,7 +67,7 @@ class QuizController extends AbstractController
         $form = $this->createForm(StartFormType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted())
+        if($form->isSubmitted() && $form->isValid())
         {
             $session = new Session();
             $session->set('questions', $randomQuestions);

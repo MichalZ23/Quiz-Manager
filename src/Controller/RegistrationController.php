@@ -18,7 +18,7 @@ class RegistrationController extends AbstractController
         $user = new User;
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        if($form->isSubmitted())
+        if($form->isSubmitted() && $form->isValid())
         {
             $user = $form->getData();
             $user->setPassword(
@@ -26,7 +26,6 @@ class RegistrationController extends AbstractController
             );
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            dump($user);
             $em->flush();
 
             return $this->redirect($this->generateUrl('app_login'));
