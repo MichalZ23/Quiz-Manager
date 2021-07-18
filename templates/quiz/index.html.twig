@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Quiz {{quiz.id}}, {{quiz.name}}</h1>
+<ol style="font-size: 1.5rem">
+{% for question in questions %}
+<li>
+<h3>{{question.content}}</h3>
+<p>A: {{question.answerA}}</p>
+<p>B: {{question.answerB}}</p>
+<p>C: {{question.answerC}}</p>
+</li>
+{% endfor %}
+</ol>
+{{form(form)}}
+
+
+{% endblock %}
