@@ -14,7 +14,9 @@ class NewQuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content')
+            ->add('content', options: [
+                'label' => 'Question'
+            ])
             ->add('answerA', options: [
                 'label' => 'Answer A'
             ])

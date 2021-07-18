@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Entity\Question;
-
 class CorrectAnswersCollector
 {
     

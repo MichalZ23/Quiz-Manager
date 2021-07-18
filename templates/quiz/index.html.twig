@@ -2,11 +2,11 @@
 
 {% block body %}
 
-<h1>Quiz {{quiz.id}}, {{quiz.name}}</h1>
+<h3>Quiz: {{quiz.name}}</h3>
 <ol style="font-size: 1.5rem">
 {% for question in questions %}
 <li>
-<h3>{{question.content}}</h3>
+<h5>{{question.content}}</h5>
 <p>A: {{question.answerA}}</p>
 <p>B: {{question.answerB}}</p>
 <p>C: {{question.answerC}}</p>

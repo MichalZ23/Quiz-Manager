@@ -34,6 +34,7 @@ class MainController extends AbstractController
         $quiz = new Quiz;
         $form = $this->createForm(NewQuizType::class, $quiz);
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();

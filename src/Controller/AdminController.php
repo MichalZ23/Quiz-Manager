@@ -49,8 +49,7 @@ class AdminController extends AbstractController
         return $this->render('admin/questions.html.twig', [
             'form' => $form->createView(),
             'counter' => $counter,
-            'max' => MAX_QUESTION_NUMBER,
-            'quizId' => $quizId
+            'max' => MAX_QUESTION_NUMBER
         ]);
     }
 }

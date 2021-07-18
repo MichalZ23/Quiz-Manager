@@ -13,6 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'register')]
+    /**
+     * @param Request $request
+     * @param UserPasswordInterface $hasher
+     */
     public function register(Request $request, UserPasswordHasherInterface $hasher): Response
     {
         $user = new User;

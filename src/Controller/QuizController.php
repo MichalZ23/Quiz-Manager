@@ -22,6 +22,7 @@ class QuizController extends AbstractController
      * @param Request $request
      * @param Quiz $quiz
      * @param CorrectAnswersCollector $correctAnswersCollector
+     * @param AnswersChecker $answersChecker
      */
     public function index(Request $request, Quiz $quiz, CorrectAnswersCollector $correctAnswersCollector, AnswersChecker $answersChecker): Response
     {
@@ -31,7 +32,7 @@ class QuizController extends AbstractController
         $correctAnswers = $correctAnswersCollector->collectAnswers($randomQuestions);
         $form = $this->createForm(UserAnswerType::class);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid())
         {   
             $userAnswers = $form->getData();
