@@ -40,7 +40,7 @@ class QuizController extends AbstractController
         {   
             $userAnswers = $form->getData();
             $points = $answersChecker->checkAnswers($userAnswers, $correctAnswers);
-            $result = new Result;
+            $result = new Result();
             $result->setQuiz($quiz);
             $result->setUser($this->getUser());
             $result->setDate(new \DateTime());

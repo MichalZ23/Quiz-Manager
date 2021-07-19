@@ -12,32 +12,19 @@ class UserAnswerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        for($i = 0; $i < QUESTIONS_IN_QUIZ; ++$i)
+        {
         $builder
-        ->add(0, ChoiceType::class, [
+        ->add($i, ChoiceType::class, [
             'choices' => [
                 'A' => 'a',
                 'B' => 'b',
                 'C' => 'c',
             ],
-            'label' => 'Your Answer 1: '
-        ])
-        ->add(1, ChoiceType::class, [
-            'choices' => [
-                'A' => 'a',
-                'B' => 'b',
-                'C' => 'c',
-            ],
-            'label' => 'Your Answer 2: '
-        ])
-        ->add(2, ChoiceType::class, [
-            'choices' => [
-                'A' => 'a',
-                'B' => 'b',
-                'C' => 'c',
-            ],
-            'label' => 'Your Answer 3: '
-        ])
-        ->add('OK', SubmitType::class)
+            'label' => 'Your Answer ' . $i + 1 . ': '
+        ]);
+        }
+        $builder->add('OK', SubmitType::class)
         ;
     }
 

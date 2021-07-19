@@ -20,13 +20,14 @@ class ResultRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $number
      * @return Result[] Returns an array of Result objects
      */
-    public function getLast20Results()
+    public function getLastResults(int $number)
     {
         return $this->createQueryBuilder('r')
             ->orderBy('r.date', 'DESC')
-            ->setMaxResults(20)
+            ->setMaxResults($number)
             ->getQuery()
             ->getResult()
         ;

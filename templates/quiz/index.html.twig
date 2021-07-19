@@ -3,17 +3,25 @@
 {% block body %}
 
 <h3>Quiz: {{quiz.name}}</h3>
-<ol style="font-size: 1.5rem">
-{% for question in questions %}
-<li>
-<h5>{{question.content}}</h5>
-<p>A: {{question.answerA}}</p>
-<p>B: {{question.answerB}}</p>
-<p>C: {{question.answerC}}</p>
-</li>
-{% endfor %}
-</ol>
-{{form(form)}}
+<table style="width: 70%">
+<tr>
+    <td>
+        <ol style="font-size: 1.5rem">
+            {% for question in questions %}
+            <li>
+                <h5>{{question.content}}</h5>
+                <p>A: {{question.answerA}}</p>
+                <p>B: {{question.answerB}}</p>
+                <p>C: {{question.answerC}}</p>
+            </li>
+            {% endfor %}
 
+        </ol>
+    </td>
+    <td style="vertical-align: top">
+        {{form(form)}}
+    </td>
+</tr>
+</table>
 
 {% endblock %}
