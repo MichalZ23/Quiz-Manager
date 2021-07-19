@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Results!{% endblock %}
+
+{% block body %}
+
+<h1>Last results</h1>
+    <table class='table table-striped'>
+        <thead>
+            <tr>
+                <td>No.</td><td>Quiz</td><td>User</td><td>Date</td><td>Points</td>
+            </tr>
+        </thead>
+        <tbody>
+{% set i = 1 %}
+{% for result in results %}
+    <tr>
+        <td>{{ i }}</td>
+        <td>{{ result.quiz.name }}</td>
+        <td>{{ result.user.username }}</td>
+        <td>{{ result.date|date("m/d/Y H:i:s") }}</td>
+        <td>{{ result.points }}</td>
+    </tr>
+    {% set i = i + 1 %}
+{% endfor %}
+
+{% endblock %}

@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Quiz;
-use App\Form\NewQuizType;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,32 +23,7 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/admin', name: 'admin')]
-    /**
-     * @param Request $request
-     */
-    public function getAdminPanel(Request $request)
-    {
-        $quiz = new Quiz;
-        $form = $this->createForm(NewQuizType::class, $quiz);
-        $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($quiz);
-            $em->flush();
-
-            return $this->redirectToRoute('questions', array(
-                'quizId' => $quiz->getId(),
-                'counter' => 1
-            ));
-        }
-
-        return $this->render('admin/index.html.twig', [
-            'form' => $form->createView(),
-        ]); 
-    }
+    
 
     
 }

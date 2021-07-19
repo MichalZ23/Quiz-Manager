@@ -28,10 +28,13 @@
                     <a class="nav-link" href="{{path('admin')}}">Admin panel</a>
                 </li>
                 {% endif %}
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %} 
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item float-end">
+                    <a class="nav-link" href="{{ path('results')}}">Results</a>
+                </li>
                 <li class="nav-item float-end">
                     <a class="nav-link" href="{{ path('app_logout')}}">Logout</a>
-                </li>        
+                </li>
                 {% else %}
                 <li class="nav-item float-end">
                     <a class="nav-link" href="{{ path('register')}}">Register</a>

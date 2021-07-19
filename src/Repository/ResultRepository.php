@@ -19,6 +19,19 @@ class ResultRepository extends ServiceEntityRepository
         parent::__construct($registry, Result::class);
     }
 
+    /**
+     * @return Result[] Returns an array of Result objects
+     */
+    public function getLast20Results()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.date', 'DESC')
+            ->setMaxResults(20)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Result[] Returns an array of Result objects
     //  */
