@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Entity\Result;
 use App\Form\StartFormType;
 use App\Form\UserAnswerType;
 use App\Repository\QuestionRepository;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class QuizController extends AbstractController
 {
@@ -23,8 +25,9 @@ class QuizController extends AbstractController
      * @param Quiz $quiz
      * @param CorrectAnswersCollector $correctAnswersCollector
      * @param AnswersChecker $answersChecker
+     * @param UserInterface $userInterface
      */
-    public function index(Request $request, Quiz $quiz, CorrectAnswersCollector $correctAnswersCollector, AnswersChecker $answersChecker): Response
+    public function index(Request $request, Quiz $quiz, CorrectAnswersCollector $correctAnswersCollector, AnswersChecker $answersChecker, UserInterface $userInterface): Response
     {
         
         $session = new Session();
@@ -37,6 +40,14 @@ class QuizController extends AbstractController
         {   
             $userAnswers = $form->getData();
             $points = $answersChecker->checkAnswers($userAnswers, $correctAnswers);
+            $result = new Result;
+            $result->setQuiz($quiz);
+            $result->setUser($this->getUser());
+            $result->setDate(new \DateTime());
+            $result->setPoints($points);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($result);
+            $em->flush();
             return $this->render('quiz/end.html.twig', [
                 'points' => $points
             ]);
